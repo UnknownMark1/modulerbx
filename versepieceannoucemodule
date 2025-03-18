@@ -2,7 +2,7 @@ local module = {}
 
 local function formatRichText(text)
 	return text:gsub("//color'%s*(%d+),%s*(%d+),%s*(%d+)%s*'<(.-)>", function(r, g, b, content)
-		return "<font color='rgb(" .. r .. "," .. g .. "," .. b .. ")'>" .. content .. "</font>"
+		return "<font color='rgb("..r..","..g..","..b..")'>"..content.."</font>"
 	end)
 end
 
