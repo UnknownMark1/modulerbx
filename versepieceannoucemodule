@@ -1,0 +1,52 @@
+local module = {}
+
+local function formatRichText(text)
+	return text:gsub("//color'%s*(%d+),%s*(%d+),%s*(%d+)%s*'>(.-)<", function(r, g, b, content)
+		return "<font color='rgb(" .. r .. "," .. g .. "," .. b .. ")'>" .. content .. "</font>"
+	end)
+end
+
+function module:Announce(text, textcolor)
+	if textcolor and text then
+		local player = game:GetService("Players").LocalPlayer
+		local ui = player.PlayerGui:FindFirstChild("UI")
+		if not ui then return end
+		local mtable = ui:FindFirstChild("{}")
+		if not mtable then return end
+		local annouce = player.PlayerGui:FindFirstChild("Annouce")
+		if not annouce then return end
+		local sound = mtable:FindFirstChild("GiveSFX")
+		if sound then
+			sound:Play()
+		end
+		local template = mtable:FindFirstChild("Annouce")
+		if not template then return end
+		local clone = template:Clone()
+		clone.RichText = true
+		clone.Text = formatRichText(text)
+		clone.Name = "Script TP Switch Reporter"
+		clone.TextColor3 = textcolor
+		clone.Parent = annouce:FindFirstChild("Main")
+		clone.Size = UDim2.new(1, 0, 2, 0)
+		local TweenService = game:GetService("TweenService")
+		TweenService:Create(clone, TweenInfo.new(0.35, Enum.EasingStyle.Back), {
+			Size = UDim2.new(1, 0, 1, 0)
+		}):Play()
+		clone.TextTransparency = 1
+		clone.TextStrokeTransparency = 1
+		TweenService:Create(clone, TweenInfo.new(0.25, Enum.EasingStyle.Quad), {
+			TextTransparency = 0,
+			TextStrokeTransparency = 0.5
+		}):Play()
+		task.delay(2.9, function()
+			TweenService:Create(clone, TweenInfo.new(0.1, Enum.EasingStyle.Quad), {
+				TextTransparency = 1,
+				TextStrokeTransparency = 1
+			}):Play()
+		end)
+
+		game:GetService("Debris"):AddItem(clone, 3)
+	end
+end
+
+return module
