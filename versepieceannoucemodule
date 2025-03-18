@@ -29,7 +29,7 @@ function module:Announce(text, textcolor)
 		local clone = template:Clone()
 		clone.RichText = true
 		clone.Text = formatRichText(text)
-		clone.Name = "Script TP Switch Reporter"
+		clone.Name = "Annocument Reported!"
 		clone.TextColor3 = textcolor
 		clone.Parent = annouce:FindFirstChild("Main")
 		clone.Size = UDim2.new(1, 0, 2, 0)
