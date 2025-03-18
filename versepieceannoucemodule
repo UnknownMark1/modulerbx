@@ -1,14 +1,13 @@
 local module = {}
 
 local function formatRichText(text)
-	text = text:gsub("//color'%s*(%d+),%s*(%d+),%s*(%d+)%s*'<(.-)>", function(r, g, b, content)
+	return text:gsub("//color'%s*(%d+),%s*(%d+),%s*(%d+)%s*'<(.-)>", function(r, g, b, content)
 		return "<font color='rgb("..r..","..g..","..b..")'>"..content.."</font>"
 	end)
-	text = text:gsub("//color'%s*(%d+),%s*(%d+),%s*(%d+)%s*'<(.-)>", function(r, g, b, content)
+	
+	return text:gsub("//color'%s*(%d+),%s*(%d+),%s*(%d+)%s*'<(.-)>", function(r, g, b, content)
 		return "<font color='rgb("..r..","..g..","..b..")'>"..content.."</font>"
 	end)
-
-	return text
 end
 
 function module:Announce(text, textcolor)
